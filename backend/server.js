@@ -6,8 +6,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const app = express();
 
 // Configure CORS
+//||"https://project-task-pi.vercel.app/"
 const corsOptions = {
-    origin: "http://localhost:3000" ||"https://project-task-pi.vercel.app/"|| "*", // Allow your frontend domain
+    origin: "http://localhost:3000" ||"https://project-task-pi.vercel.app/"||"*", // Allow your frontend domain
     methods: ["GET", "POST", "OPTIONS"],  // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
 };
@@ -22,7 +23,11 @@ app.post("/create-checkout-session", async (req, res) => {
     try {
         const { productsOrdered } = req.body;
         console.log(productsOrdered)
-
+  
+    
+        if (!Array.isArray(productsOrdered) || productsOrdered.length === 0) {
+            return res.status(400).json({ error: "Items array is required" });
+        }
 
         const lineItems = productsOrdered.map((item) => ({
             price_data: {
@@ -43,8 +48,8 @@ app.post("/create-checkout-session", async (req, res) => {
             success_url: `${process.env.CLIENT_URL}/success`,
             cancel_url: `${process.env.CLIENT_URL}/cart`,
         });
-
-        res.json({ url: session.url });
+      
+        res.json({ url: session.id});
     } catch (error) {
         console.error("Error creating checkout session:", error);
         res.status(500).json({ error: "Internal Server Error" });
