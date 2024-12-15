@@ -5,8 +5,14 @@ require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET); 
 const app = express();
 
+const corsOptions = {
+    origin: '*',  // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
 
-app.use(cors()); 
+app.use(cors(corsOptions)); 
+
 app.use(express.json()); 
 
 
