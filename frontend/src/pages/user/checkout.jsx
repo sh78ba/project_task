@@ -177,8 +177,8 @@ const Checkout = () => {
     }
  
     try {
-      //https://project-task-backend.vercel.app
-      const response = await fetch("http://localhost:6001/create-checkout-session", {
+      //bakend code for stripe
+      const response = await fetch("https://project-task-backend.vercel.app/create-checkout-session", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
