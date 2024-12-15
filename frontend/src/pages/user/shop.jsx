@@ -33,7 +33,7 @@ const Shop = ({category}) => {
       try {
         const response = await fetch('https://ecommercebackend-8gx8.onrender.com/get-product');
         const data = await response.json();
-        console.log(data.products)
+        
         if (data.success) {
           const validProducts = data.products.filter(product => 
             product.name && 
@@ -43,7 +43,7 @@ const Shop = ({category}) => {
             product._id &&
             (product.visibility === ("on") || product.visibility === "true")
           );
-          console.log(validProducts)
+          
           setProducts(validProducts);
           setFilteredProducts(validProducts);
         }

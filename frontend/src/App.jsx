@@ -20,7 +20,7 @@ import Admin from "./pages/user/admin";
 import AdminLogin from "./pages/admin/login"
 import AdminSignUp from "./pages/admin/signup"
 import Success from "./pages/admin/success";
-import OrderUser from "./pages/user/orders";
+
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
           <Route path="/admin/customers" element={<Customers />} />
           <Route path="/admin/calendar" element={<CalendarPage />} />
           <Route path="/success" element={<Success/>} />
-          <Route path="/orders" element={<OrderUser/>} />
+    
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

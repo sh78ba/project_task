@@ -177,7 +177,7 @@ const Checkout = () => {
     }
  
     try {
-      const response = await fetch("http://localhost:6001/create-checkout-session", {
+      const response = await fetch("https://project-task-backend.vercel.app/create-checkout-session", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -187,7 +187,7 @@ const Checkout = () => {
         })
       });
     
-      console.log(response);
+
     
       if (!response.ok) {
         console.error('Failed to create checkout session');
