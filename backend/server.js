@@ -7,7 +7,7 @@ const app = express();
 
 // Configure CORS
 const corsOptions = {
-    origin: process.env.CLIENT_URL || "*", // Allow your frontend domain
+    origin: "http://localhost:3000" ||"https://project-task-pi.vercel.app/"|| "*", // Allow your frontend domain
     methods: ["GET", "POST", "OPTIONS"],  // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
 };
