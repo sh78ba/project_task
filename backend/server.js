@@ -21,6 +21,7 @@ app.use(express.json());
 app.post("/create-checkout-session", async (req, res) => {
     try {
         const { productsOrdered } = req.body;
+        console.log(productsOrdered)
 
 
         const lineItems = productsOrdered.map((item) => ({
