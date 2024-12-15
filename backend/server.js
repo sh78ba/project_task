@@ -5,26 +5,16 @@ require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const app = express();
 
-// Enable CORS for all origins
-app.use(cors());
+// Configure CORS
+const corsOptions = {
+    origin: process.env.CLIENT_URL || "*", // Allow your frontend domain
+    methods: ["GET", "POST", "OPTIONS"],  // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+};
+app.use(cors(corsOptions));
 
-// Alternatively, customize CORS settings for specific origins
-// app.use(cors({
-//     origin: process.env.CLIENT_URL, // Allow only your frontend
-//     methods: ["GET", "POST", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"]
-// }));
-
-// Middleware to handle preflight OPTIONS requests explicitly
-app.use((req, res, next) => {
-    if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        return res.sendStatus(204); // No Content
-    }
-    next();
-});
+// Middleware for preflight OPTIONS requests
+app.options("*", cors(corsOptions)); // Handle preflight requests
 
 app.use(express.json());
 
@@ -63,8 +53,8 @@ app.post("/create-checkout-session", async (req, res) => {
     }
 });
 
-// Server configuration
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server started at port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
